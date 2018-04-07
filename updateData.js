@@ -12,7 +12,7 @@ var https = require('https');
 xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 var fs = require('fs');
-var sleep = require('sleep');
+var sleep = require('system-sleep');
 
 var startTime='2018-01-01';
 var endTime = '2018-04-01';
@@ -86,15 +86,15 @@ function update() {
     }
 
     format('amzn');
-    sleep.sleep(1);
+    sleep(1000);
     format('msft');
-    sleep.sleep(1);
+    sleep(1000);
     format('fb');
-    sleep.sleep(1);
+    sleep(1000);
     format('tsla');
-    sleep.sleep(1);
+    sleep(1000);
     format('nflx');
-    sleep.sleep(1);
+    sleep(1000);
     format('aapl');
 
 
