@@ -7,8 +7,54 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <style> /* set the CSS */
+body {
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+}
 
-body { font: 12px Arial;}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
 
 path {
     stroke: steelblue;
@@ -38,72 +84,91 @@ path {
 
 <!-- As a heading -->
 <nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Simple one-page app dans le cadre du recrutement Ekimetrics</span>
+    <span class="navbar-brand mb-0 h1"></span>
 </nav>
 
 
 
-
-
-<div class="grid-container">
-    <div class="row">
-        <div class="col-sm-4 centered">
-            Selectionnez une action pour afficher son cours :
-            <div id="apple">
-                <input name="updateButton"
-                       type="button"
-                       value="Apple (AAPL)"
-                       onclick="updateData('aapl')" />
-            </div>
-            <div id="facebook">
-                <input name="updateButton"
-                       type="button"
-                       value="Facebook (FB)"
-                       onclick="updateData('fb')" />
-            </div>
-            <div id="tesla">
-                <input name="updateButton"
-                       type="button"
-                       value="Tesla (TSLA)"
-                       onclick="updateData('tsla')" />
-            </div>
-            <div id="amazon">
-                <input name="updateButton"
-                       type="button"
-                       value="Amazon (AMZN)"
-                       onclick="updateData('amzn')" />
-            </div>
-            <div id="microsoft">
-                <input name="updateButton"
-                       type="button"
-                       value="Microsoft (MSFT)"
-                       onclick="updateData('msft')" />
-            </div>
-
-            <div id="netflix">
-                <input name="updateButton"
-                       type="button"
-                       value="Netflix (NFLX)"
-                       onclick="updateData('nflx')" />
-            </div>
-        </div>
-        <div class="col-sm-8">
-            <svg width="960" height="500" id="plot"></svg>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-apple" role="tabpanel" aria-labelledby="list-apple-list">...</div>
-                <div class="tab-pane fade" id="list-facebook" role="tabpanel" aria-labelledby="list-facebook-list">kek</div>
-                <div class="tab-pane fade" id="list-tesla" role="tabpanel" aria-labelledby="list-tesla-list">...</div>
-                <div class="tab-pane fade" id="list-amazon" role="tabpanel" aria-labelledby="list-amazon-list">...</div>
-                <div class="tab-pane fade" id="list-microsoft" role="tabpanel" aria-labelledby="list-microsoft-list">...</div>
-                <div class="tab-pane fade" id="list-netflix" role="tabpanel" aria-labelledby="list-netflix-list">...</div>
-            </div>
-            <script src="http://d3js.org/d3.v3.min.js"></script>
-            <script src ="../javascripts/plot.js"></script>
-
-        </div>
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    Selectionnez une action pour afficher son cours :
+    <div id="apple">
+        <input name="updateButton"
+               type="button"
+               value="Apple (AAPL)"
+               onclick="updateData('aapl')" />
+    </div>
+    <div id="facebook">
+        <input name="updateButton"
+               type="button"
+               value="Facebook (FB)"
+               onclick="updateData('fb')" />
+    </div>
+    <div id="tesla">
+        <input name="updateButton"
+               type="button"
+               value="Tesla (TSLA)"
+               onclick="updateData('tsla')" />
+    </div>
+    <div id="amazon">
+        <input name="updateButton"
+               type="button"
+               value="Amazon (AMZN)"
+               onclick="updateData('amzn')" />
+    </div>
+    <div id="microsoft">
+        <input name="updateButton"
+               type="button"
+               value="Microsoft (MSFT)"
+               onclick="updateData('msft')" />
     </div>
 
+    <div id="netflix">
+        <input name="updateButton"
+               type="button"
+               value="Netflix (NFLX)"
+               onclick="updateData('nflx')" />
+    </div>
+    <br />
+    <br />
+    <form onsubmit="">
+        <p>Début du graphe:</p>
+        <p>
+            <input type="date" name="start">
+        </p>
+        <p>Fin du graphe:</p>
+        <p>
+            <input type="date" name="end">
+        </p>
+        <input type="submit">
+    </form>
+
 </div>
+
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Selectionner une action</span>
+
+<div id="main">
+    <h1> Simple one-page app dans le cadre du recrutement Ekimetrics </h1>
+    <svg width="960" height="500" id="plot"></svg>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src ="../javascripts/plot.js"></script>
+
+</div>
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft= "0";
+        document.body.style.backgroundColor = "white";
+    }
+</script>
 
 
 </body>

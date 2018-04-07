@@ -30,6 +30,8 @@ function setTimers(start,end,interv) {
     interval=interv;
 }
 
+module.exports.setTimers = setTimers;
+
 /*
     Updates the Json files in public, important to not execute on client side because the auth key would be passed.
     Takes no argument, uses global time settings defined above and updates all stocks at one.
