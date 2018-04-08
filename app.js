@@ -3,11 +3,26 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const BP = require('body-parser');
 
 var indexRouter = require('./routes/index');
 
 
+
 var app = express();
+
+
+app.use(BP.json());
+
+
+/*
+    Lorsqu'on utilise Postman, les requêtes POST ne fonctionne pas toujours en Json, (apparemment c'est un problème récurrent sur le web
+    du coup dans body sur postman j'ai coché x-www-form-urlencoded et le petit bout de code suivant est pour pouvoir exploiter ce format
+ */
+app.use(BP.urlencoded({
+    extended: true
+}));
+app.use(BP.urlencoded())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

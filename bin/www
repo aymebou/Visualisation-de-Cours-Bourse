@@ -29,12 +29,7 @@ var schedule = require('node-schedule');
 
 server.listen(port, function () {
   console.log("Server started");
-    var rule = new schedule.RecurrenceRule();
-    rule.second = [0, 20, 40];
-    schedule.scheduleJob(rule, function(){
 
-        update.update('2018-03-20 10:00','2018-04-06 10:00', 'amzn');
-    });
 });
 server.on('error', onError);
 server.on('listening', onListening);

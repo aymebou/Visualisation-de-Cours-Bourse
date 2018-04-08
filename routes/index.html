@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
 
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
 <head>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Visualisation de Cours Bourse</title>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src ="../javascripts/plot.js"></script>
+
+    <script> $(document).ready(function () {
+        initGraph();
+        initDates();
+    });</script>
+
+
 </head>
 
 <body>
-
-
-<!-- As a heading -->
-<nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1"></span>
-</nav>
 
 
 
@@ -34,61 +38,59 @@
         <input name="updateButton"
                type="button"
                value="Apple (AAPL)"
-               onclick="updateData('aapl')" />
+               onclick="setCurrency('aapl')" />
     </div>
     <div id="facebook">
         <input name="updateButton"
                type="button"
                value="Facebook (FB)"
-               onclick="updateData('fb')" />
+               onclick="setCurrency('fb')" />
     </div>
     <div id="tesla">
         <input name="updateButton"
                type="button"
                value="Tesla (TSLA)"
-               onclick="updateData('tsla')" />
+               onclick="setCurrency('tsla')" />
     </div>
     <div id="amazon">
         <input name="updateButton"
                type="button"
                value="Amazon (AMZN)"
-               onclick="updateData('amzn')" />
+               onclick="setCurrency('amzn')" />
     </div>
     <div id="microsoft">
         <input name="updateButton"
                type="button"
                value="Microsoft (MSFT)"
-               onclick="updateData('msft')" />
+               onclick="setCurrency('msft')" />
     </div>
 
     <div id="netflix">
         <input name="updateButton"
                type="button"
                value="Netflix (NFLX)"
-               onclick="updateData('nflx')" />
+               onclick="setCurrency('nflx')" />
     </div>
     <br />
     <br />
     <script src="/javascripts/requestUpdate.js"></script>
         <p>Début du graphe:</p>
         <p>
-            <input type="date" name="start" value="2018-01-01", onChange="requestUpdate(this.value, undefined, undefined); updateData('amzn');">
+            <input type="date" name="start" id="startDate" onChange="setStartTime(this.value) ">
         </p>
         <p>Fin du graphe:</p>
         <p>
-            <input type="date" name="end" value="2018-04-01" onChange="requestUpdate(undefined, this.value, undefined); updateData('amzn');">
+            <input type="date" name="end" id="endDate" onChange="setEndTime(this.value)">
         </p>
 
 </div>
 
 
-<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; <p> Selectionner </p> une action</span>
 
 <div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; <p> Selectionner </p> une action</span>
     <h1> Simple one-page app dans le cadre du recrutement Ekimetrics </h1>
     <svg width="960" height="500" id="plot"></svg>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src ="../javascripts/plot.js"></script>
 
 </div>
 

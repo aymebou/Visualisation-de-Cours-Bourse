@@ -1,20 +1,48 @@
 //script to be used by client to force reload with different settings.
+var currency;
+var starttime;
+var endtime;
+var deltaTime='daily'
 
-function requestUpdate(starttime,endtime,deltatime) {
+function setCurrency(curr) {
+    currency=curr;
+    requestUpdate()
+}
+
+function setStartTime(time) {
+    starttime=time;
+    requestUpdate()
+}
+function setEndTime(time) {
+    endtime=time;
+    requestUpdate()
+}
+
+function initDates(){
+    starttime='2018-01-01';
+    endtime='2018-04-01';
+    $('#startDate').val('2018-01-01');
+    $('#endDate').val('2018-04-01');
+
+}
+
+function requestUpdate() {
     $.ajax({
-        url: "http://52.56.36.139/update",
+        url: "/update",
         data: {
             start: starttime,
             end: endtime,
-            delta:deltatime,
+            currency:currency,
+            interv:deltaTime,
         },
         method: "POST",
         dataType: "json",
         error: (request, status, error) => {
             console.log(error);
     },
-        succes: (data, status, request) => {
-            console.log("data sent");
+        success: function (data) {
+
+            updateData(data);
 
     }
 });
