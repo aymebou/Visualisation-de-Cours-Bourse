@@ -25,11 +25,23 @@ var sleep = require('system-sleep');
 
 router.post('/', (req,res,err) => {
     console.log(JSON.stringify(req.body));
-    console.
-    format(function (a) {
-    //renvoyer côté client
-    res.send(a);
-    }, req.body.currency, req.body.start,req.body.end,req.body.interv);
+
+    var interv = 'daily';
+    var dateInterval = new Date((new Date(req.body.end)).getTime() - (new Date(req.body.start)).getTime());
+    var dayInterval = ((dateInterval.getUTCFullYear()-1970)*12 + dateInterval.getUTCMonth())*30 + dateInterval.getUTCDay();
+
+    if (dayInterval > 150) {
+        interv='weekly';
+    }
+    if (dayInterval>600) {
+        interv='monthly';
+    }
+
+
+format(function (a) {
+            //renvoyer côté client
+            res.send(a);
+        }, req.body.currency, req.body.start,req.body.end,interv);
 });
 
 
@@ -50,6 +62,7 @@ function format(callbackFun, currency, startTime, endTime, interval) {
 
         },
     };
+    console.log(options);
 
     https.request(options, function (res) {
         res.setEncoding('utf8');

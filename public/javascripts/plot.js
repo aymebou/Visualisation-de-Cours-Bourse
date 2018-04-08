@@ -72,13 +72,13 @@ function updateData(data) {
 
     data.forEach(function(d) {
         d.date = parseDate(d.date[0]);
+        d.close = parseFloat(d.close);
     });
     console.log(data);
 
     // Scale the range of the data again
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
-
     // Select the section we want to apply our changes to
     svg = d3.select("#plot").transition();
 
