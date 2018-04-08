@@ -26,6 +26,10 @@ function initDates(){
 
 }
 
+function initCurrency(){
+    currency='amzn';
+}
+
 function requestUpdate() {
     $.ajax({
         url: "/update",

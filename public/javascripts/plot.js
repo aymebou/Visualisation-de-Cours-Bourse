@@ -7,9 +7,9 @@ var svg;
 
 function initGraph() {
     // Set the dimensions of the canvas / graph
-    var margin = {top: 30, right: 20, bottom: 30, left: 50},
-        width = 1000 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    var margin = {top: 30, right: 20, bottom: 30, left: 80},
+        width = 1600 - margin.left - margin.right,
+        height = 800 - margin.top - margin.bottom;
     x = d3.time.scale().range([0, width]);
     y = d3.scale.linear().range([height, 0]);
 
