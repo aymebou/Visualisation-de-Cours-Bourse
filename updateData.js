@@ -6,7 +6,8 @@ for the front end
 
  */
 
-
+const Express = require('express');
+const router = Express.Router();
 
 var https = require('https');
 xml2js = require('xml2js');
@@ -24,14 +25,27 @@ var interval='daily';
         - end    : YYYY-MM-DD
         - interv : 'daily', 'weekly', or 'monthly'
  */
+
+router.post('/', (req,res,err) => {
+    console.log('request recieved');
+    setTimers(req.body.start,req.body.end,req.body.delta);
+    update();
+});
+
+
 function setTimers(start,end,interv) {
-    startTime=start;
-    endTime=end;
-    interval=interv;
+    if (start !== undefined) {
+        startTime=start;
+    }
+    if (interv !== undefined) {
+        interval=interv;
+    }
+    if (end !== undefined) {
+        endTime=end;
+    }
 }
 
-module.exports.setTimers = setTimers;
-
+module.exports.router = router;
 /*
     Updates the Json files in public, important to not execute on client side because the auth key would be passed.
     Takes no argument, uses global time settings defined above and updates all stocks at one.

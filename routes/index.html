@@ -6,77 +6,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-<style> /* set the CSS */
-body {
-    font-family: "Lato", sans-serif;
-    transition: background-color .5s;
-}
 
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-
-.sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav a:hover {
-    color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-}
-
-path {
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
-
-</style>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <title>Visualisation de Cours Bourse</title>
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 </head>
 
 <body>
@@ -131,22 +69,20 @@ path {
     </div>
     <br />
     <br />
-    <form onsubmit="">
+    <script src="/javascripts/requestUpdate.js"></script>
         <p>Début du graphe:</p>
         <p>
-            <input type="date" name="start">
+            <input type="date" name="start" value="2018-01-01", onChange="requestUpdate(this.value, undefined, undefined); updateData('amzn');">
         </p>
         <p>Fin du graphe:</p>
         <p>
-            <input type="date" name="end">
+            <input type="date" name="end" value="2018-04-01" onChange="requestUpdate(undefined, this.value, undefined); updateData('amzn');">
         </p>
-        <input type="submit">
-    </form>
 
 </div>
 
 
-<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Selectionner une action</span>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; <p> Selectionner </p> une action</span>
 
 <div id="main">
     <h1> Simple one-page app dans le cadre du recrutement Ekimetrics </h1>
