@@ -65,7 +65,6 @@ function format(callbackFun, currency, startTime, endTime, interval) {
     https.request(options, function (res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
-            console.log(chunk);
             if (chunk !== undefined && chunk.length > 0) {
                 parser.parseString(chunk, function (err, result) {
                     if (err || result==null) {
