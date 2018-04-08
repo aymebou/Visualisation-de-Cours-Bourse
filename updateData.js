@@ -24,7 +24,6 @@ var sleep = require('system-sleep');
  */
 
 router.post('/', (req,res,err) => {
-    console.log(JSON.stringify(req.body));
 
     var interv = 'daily';
     var dateInterval = new Date((new Date(req.body.end)).getTime() - (new Date(req.body.start)).getTime());
@@ -62,7 +61,6 @@ function format(callbackFun, currency, startTime, endTime, interval) {
 
         },
     };
-    console.log(options);
 
     https.request(options, function (res) {
         res.setEncoding('utf8');
