@@ -2,7 +2,7 @@
 
 function requestUpdate(starttime,endtime,deltatime) {
     $.ajax({
-        url: "http://localhost:4000/update",
+        url: "http://52.56.36.139/update",
         data: {
             start: starttime,
             end: endtime,
