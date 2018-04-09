@@ -8,7 +8,7 @@ var svg;
 function initGraph() {
     // Set the dimensions of the canvas / graph
     console.log( parseInt(d3.select("#title").style('height')));
-    var margin = {top: 0, right: 20, bottom: 80, left: 80},
+    var margin = {top: 25, right: 20, bottom: 25, left: 80},
         width = parseInt(d3.select("#main").style('width')) - margin.left - margin.right,
         height = parseInt(d3.select("#main").style('height')) - margin.top - margin.bottom -
             parseInt(d3.select("#title").style('height')) - 100;
