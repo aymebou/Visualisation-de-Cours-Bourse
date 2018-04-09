@@ -2,7 +2,6 @@
 var currency;
 var starttime;
 var endtime;
-var deltaTime='daily'
 
 function setCurrency(curr) {
     currency=curr;
@@ -37,7 +36,6 @@ function requestUpdate() {
             start: starttime,
             end: endtime,
             currency:currency,
-            interv:deltaTime,
         },
         method: "POST",
         dataType: "json",

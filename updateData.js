@@ -14,16 +14,29 @@ var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 var fs = require('fs');
 var sleep = require('system-sleep');
-
+const BaseJoi = require('joi');
+const Celebrate = require('celebrate');
+const Extension = require('joi-date-extensions');
+const Joi = BaseJoi.extend(Extension);
 
 /*
     Changes global project time settings, format :
-        - start  : YYYY-MM-DD
-        - end    : YYYY-MM-DD
-        - interv : 'daily', 'weekly', or 'monthly'
+        - start    : YYYY-MM-DD
+        - end      : YYYY-MM-DD
+        - interv   : 'daily', 'weekly', or 'monthly'
+        - currency : not really currency but stock codename
  */
+router.post('/', Celebrate.celebrate({
 
-router.post('/', (req,res,err) => {
+    //Joi is a plugin here to make sure that the input data is in correct state, managing errors without trouble.
+    //Celebrate is just an interface used for Joi
+
+    body: Joi.object().keys({
+        start: Joi.date().format("YYY-MM-DD").raw().required(),
+        end: Joi.date().format("YYY-MM-DD").raw().required(),
+        currency: Joi.string().required(),
+    })
+}), (req,res,err) => {
 
     var interv = 'daily';
     var dateInterval = new Date((new Date(req.body.end)).getTime() - (new Date(req.body.start)).getTime());
@@ -38,9 +51,7 @@ router.post('/', (req,res,err) => {
     if (dayInterval>4500){
         res.send([]);
         return;
-
     }
-
 
 format(function (a) {
             //renvoyer côté client
@@ -67,11 +78,12 @@ function format(callbackFun, currency, startTime, endTime, interval) {
 
         },
     };
-
+    console.log(options);
     https.request(options, function (res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
-            if (chunk !== undefined && chunk.length > 0) {
+            console.log(chunk.length)
+            if (chunk !== undefined && chunk.length > 16) {
                 chunk = JSON.parse(chunk)["history"]["day"]
                 for (var i = 0;i<chunk.length;++i) {
                     formatedData.push(
