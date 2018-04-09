@@ -15,6 +15,9 @@ $ npm start
 Ensuite taper localhost:4000 dans le navigateur.
 
 Les fichiers en racine et /bin/www sont exclusivement executés par le server, tout ce qui est en public peut être executé par le client.
+
 Toutes les vérifications de la cohérence des données envoyées sont faites côté server.
+
 Le graphique se resize à chaque actualisation.
+
 Le choix du nombre de points sur le graphique est fait côté server et l'utilisateur n'a aucun pouvoir dessus.
