@@ -25,9 +25,9 @@ router.post('/', Celebrate.celebrate({
 
     //We check if request makes sense so that server doesn't have errors due to meaningless requests
     body: Joi.object().keys({
-        start: Joi.date().format("YYY-MM-DD").raw().required(),
-        end: Joi.date().format("YYY-MM-DD").raw().required(),
-        stock: Joi.any().valid('nsft','amzn','fb','nflx','aapl','tsla'),
+        start: Joi.date().format("YYYY-MM-DD").min('1981-01-01').raw().required(),
+        end: Joi.date().format("YYYY-MM-DD").raw().required(),
+        stock: Joi.any().valid('msft','amzn','fb','nflx','aapl','tsla'),
         //valid stocks are only amongst these
     })
 }), (req,res,err) => {
@@ -50,12 +50,7 @@ router.post('/', Celebrate.celebrate({
     if (dayInterval>600) {
         interv='monthly';
     }
-    if (dayInterval>4500){
-        //The JSON in string format does not go through the parser correctly if too long,
-        // i.e ~12y is the max we can get, even in monthly values (experimental)
-        res.send("Please reduce time interval");
-        return;
-    }
+
 
 format(function (a) {
             //resend to client side
@@ -85,15 +80,20 @@ function format(callbackFun, stock, startTime, endTime, interval) {
     };
 
     https.request(options, function (res) {
+        var buffer = ''; //used to store data in case it comes in several pieces
+        var bufferLength=0;
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
-            if (chunk !== undefined && chunk.length > 0) {
+            buffer += chunk;
+        });
+        res.on('end', function() {
+            if (buffer.length > 0) {
                 //If connection is down on any part, we avoid parsing empty string file
-                chunk = JSON.parse(chunk)["history"]["day"]
-                for (var i = 0;i<chunk.length;++i) {
+                buffer = JSON.parse(buffer)["history"]["day"]
+                for (var i = 0;i<buffer.length;++i) {
                     formatedData.push(
-                        {date:chunk[i]["date"],
-                            close: chunk[i]["close"],
+                        {date:buffer[i]["date"],
+                            close: buffer[i]["close"],
                         });
                 }
                 callbackFun(formatedData);
@@ -103,8 +103,7 @@ function format(callbackFun, stock, startTime, endTime, interval) {
                 callbackFun(new Array());
                 return;
             }
-
-        });
+        })
 
     }).end();
 }
