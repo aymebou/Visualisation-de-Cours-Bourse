@@ -73,7 +73,7 @@ function updateData(data) {
 
 
     data.forEach(function(d) {
-        d.date = parseDate(d.date[0]);
+        d.date = parseDate(d.date   );
         d.close = parseFloat(d.close);
     });
     console.log(data);

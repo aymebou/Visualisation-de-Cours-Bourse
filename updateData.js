@@ -35,6 +35,11 @@ router.post('/', (req,res,err) => {
     if (dayInterval>600) {
         interv='monthly';
     }
+    if (dayInterval>4500){
+        res.send([]);
+        return;
+
+    }
 
 
 format(function (a) {
@@ -58,6 +63,7 @@ function format(callbackFun, currency, startTime, endTime, interval) {
         method: 'GET',
         headers: {
             'Authorization': "Bearer ENEMkPQohnmS5Ml2fHMoIYaIGADQ",
+            'Accept':' application/json'
 
         },
     };
@@ -66,23 +72,15 @@ function format(callbackFun, currency, startTime, endTime, interval) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
             if (chunk !== undefined && chunk.length > 0) {
-                parser.parseString(chunk, function (err, result) {
-                    if (err || result==null) {
-                        console.log(err);
-                        callbackFun(new Array());
-                        return;
-                    }
+                chunk = JSON.parse(chunk)["history"]["day"]
+                for (var i = 0;i<chunk.length;++i) {
+                    formatedData.push(
+                        {date:chunk[i]["date"],
+                            close: chunk[i]["close"],
+                        });
+                }
+                callbackFun(formatedData);
 
-                    result = result["history"]["day"]
-                    for (var i = 0;i<result.length;++i) {
-                        formatedData.push(
-                            {date:result[i]["date"],
-                                close: result[i]["close"],
-                            });
-                    }
-                    callbackFun(formatedData);
-
-                });
             } else {
                 callbackFun(new Array());
                 return;
