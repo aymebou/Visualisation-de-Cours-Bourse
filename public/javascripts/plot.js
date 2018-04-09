@@ -9,7 +9,7 @@ var svg;
 function initGraph() {
     // Set the dimensions of the canvas / graph
     console.log( parseInt(d3.select("#title").style('height')));
-    var margin = {top: 25, right: 120, bottom: 25, left: 80},
+    var margin = {top: 25, right: 120, bottom: 80, left: 80},
         width = parseInt(d3.select("#container").style('width')) - margin.left - margin.right,
         height = parseInt(d3.select("#container").style('height')) - margin.top - margin.bottom -
             parseInt(d3.select("#title").style('height')) - 100;
@@ -60,6 +60,17 @@ function initGraph() {
         .attr("class", "y axis")
         .call(yAxis);
 
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("transform", "translate("+ -margin.left*3/4 +","+(height/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+        .text("€");
+
+    svg.append("text")
+        .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+        .attr("transform", "translate("+ (width/2) +","+(height+(margin.bottom*3/4))+")")  // centre below axis
+        .text("Date");
+
+
 }
 
 
@@ -84,6 +95,9 @@ function updateData(data) {
     y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
     // Select the graph to make it move, as you said : "le design, c’est toujours appréciable"
     svg = d3.select("#container").transition();
+
+
+
 
     // Make the changes
     svg.select(".line")   // change the line
