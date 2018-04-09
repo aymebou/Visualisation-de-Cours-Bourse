@@ -10,9 +10,9 @@ var svg;
 function initGraph() {
     // Set the dimensions of the canvas / graph
     console.log( parseInt(d3.select("#title").style('height')));
-    var margin = {top: 25, right: 20, bottom: 25, left: 80},
-        width = parseInt(d3.select("#main").style('width')) - margin.left - margin.right,
-        height = parseInt(d3.select("#main").style('height')) - margin.top - margin.bottom -
+    var margin = {top: 25, right: 80, bottom: 25, left: 80},
+        width = parseInt(d3.select("#container").style('width')) - margin.left - margin.right,
+        height = parseInt(d3.select("#container").style('height')) - margin.top - margin.bottom -
             parseInt(d3.select("#title").style('height')) - 100;
     x = d3.time.scale().range([0, width]);
     y = d3.scale.linear().range([height, 0]);
@@ -37,7 +37,7 @@ function initGraph() {
         });
 
     // Adds the svg canvas
-    var svg = d3.select("#main")
+    var svg = d3.select("#container")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -84,7 +84,7 @@ function updateData(data) {
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
     // Select the graph to make it move, as you said : "le design, c’est toujours appréciable"
-    svg = d3.select("#main").transition();
+    svg = d3.select("#container").transition();
 
     // Make the changes
     svg.select(".line")   // change the line
