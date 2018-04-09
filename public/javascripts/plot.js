@@ -5,12 +5,11 @@ var xAxis;
 var yAxis;
 var svg;
 
-
 //Inits graph with correct size : /!\ does not resize when window is resized
 function initGraph() {
     // Set the dimensions of the canvas / graph
     console.log( parseInt(d3.select("#title").style('height')));
-    var margin = {top: 25, right: 80, bottom: 25, left: 80},
+    var margin = {top: 25, right: 120, bottom: 25, left: 80},
         width = parseInt(d3.select("#container").style('width')) - margin.left - margin.right,
         height = parseInt(d3.select("#container").style('height')) - margin.top - margin.bottom -
             parseInt(d3.select("#title").style('height')) - 100;
