@@ -7,9 +7,11 @@ var svg;
 
 function initGraph() {
     // Set the dimensions of the canvas / graph
-    var margin = {top: 30, right: 20, bottom: 30, left: 80},
-        width = 1600 - margin.left - margin.right,
-        height = 800 - margin.top - margin.bottom;
+    console.log( parseInt(d3.select("#title").style('height')));
+    var margin = {top: 0, right: 20, bottom: 80, left: 80},
+        width = parseInt(d3.select("#main").style('width')) - margin.left - margin.right,
+        height = parseInt(d3.select("#main").style('height')) - margin.top - margin.bottom -
+            parseInt(d3.select("#title").style('height')) - 100;
     x = d3.time.scale().range([0, width]);
     y = d3.scale.linear().range([height, 0]);
 
@@ -33,7 +35,7 @@ function initGraph() {
         });
 
     // Adds the svg canvas
-    svg = d3.select("#plot")
+    var svg = d3.select("#main")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -49,7 +51,7 @@ function initGraph() {
     // Add the X Axis
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + height +    ")")
         .call(xAxis);
 
     // Add the Y Axis
@@ -80,7 +82,7 @@ function updateData(data) {
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
     // Select the section we want to apply our changes to
-    svg = d3.select("#plot").transition();
+    svg = d3.select("#main").transition();
 
     // Make the changes
     svg.select(".line")   // change the line
