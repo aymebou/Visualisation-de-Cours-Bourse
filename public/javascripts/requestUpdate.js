@@ -1,10 +1,10 @@
 //script to be used by client to force reload with different settings.
-var currency;
+var stock;
 var starttime;
 var endtime;
 
-function setCurrency(curr) {
-    currency=curr;
+function setStock(_stock) {
+    stock=_stock;
     requestUpdate()
 }
 
@@ -25,8 +25,8 @@ function initDates(){
 
 }
 
-function initCurrency(){
-    currency='amzn';
+function initStock(){
+    stock='amzn';
 }
 
 function requestUpdate() {
@@ -35,7 +35,7 @@ function requestUpdate() {
         data: {
             start: starttime,
             end: endtime,
-            currency:currency,
+            stock:stock,
         },
         method: "POST",
         dataType: "json",

@@ -5,6 +5,8 @@ var xAxis;
 var yAxis;
 var svg;
 
+
+//Inits graph with correct size : /!\ does not resize when window is resized
 function initGraph() {
     // Set the dimensions of the canvas / graph
     console.log( parseInt(d3.select("#title").style('height')));
@@ -62,7 +64,7 @@ function initGraph() {
 }
 
 
-// Parse the date / time
+// Parse the date
 function parseDate(d) {
     return d3.time.format("%Y-%m-%d").parse(d);
 }
@@ -81,7 +83,7 @@ function updateData(data) {
     // Scale the range of the data again
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([d3.min(data, function(d) { return d.close; }), d3.max(data, function(d) { return d.close; })]);
-    // Select the section we want to apply our changes to
+    // Select the graph to make it move, as you said : "le design, c’est toujours appréciable"
     svg = d3.select("#main").transition();
 
     // Make the changes
